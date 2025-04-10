@@ -8,7 +8,7 @@ Each project is placed in its own directory with a dedicated README and code.
 
 | Project # | Title | Technologies |
 |----------|-------|--------------|
-| 01 | [2-Tier Architecture on AWS](./feature/secure-vpc-iam-project) | Terraform, AWS EC2, VPC |
+| 01 | [2-Tier Architecture on AWS](https://github.com/sumidhasethi/Devops_Projects/tree/feature/secure-vpc-iam-project) | Terraform, AWS EC2, VPC |
 
 
 ## 🎯 Goals of These Projects
