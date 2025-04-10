@@ -8,7 +8,7 @@ Each project is placed in its own directory with a dedicated README and code.
 
 | Project # | Title | Technologies |
 |----------|-------|--------------|
-| 01 | [Secure VPC Infrastructure with IAM Controls](https://github.com/sumidhasethi/Devops_Projects/tree/feature/secure-vpc-iam-project) | Terraform, AWS EC2, VPC, IAM |
+| 01 | [Secure VPC Infrastructure with IAM Controls](https://github.com/sumidhasethi/Devops_Projects/tree/feature/secure-vpc-iam-project) | Terraform, AWS EC2, VPC, IAM, S3 |
 
 
 ## 🎯 Goals of These Projects
