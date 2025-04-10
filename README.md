@@ -8,9 +8,8 @@ Each project is placed in its own directory with a dedicated README and code.
 
 | Project # | Title | Technologies |
 |----------|-------|--------------|
-| 01 | [2-Tier Architecture on AWS](./01-two-tier-aws-terraform/) | Terraform, AWS EC2, VPC |
-| 02 | [Docker Image and IaC Scanning](./02-docker-trivy-scan/) | Docker, Trivy |
-| 03 | [EKS Cluster with Helm Deployment](./03-eks-cluster-with-helm/) | AWS EKS, Helm, Terraform |
+| 01 | [2-Tier Architecture on AWS](./feature/secure-vpc-iam-project) | Terraform, AWS EC2, VPC |
+
 
 ## 🎯 Goals of These Projects
 - Hands-on practice with Terraform, AWS, and Kubernetes
