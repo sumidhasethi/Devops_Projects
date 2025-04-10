@@ -8,11 +8,11 @@ Each project is placed in its own directory with a dedicated README and code.
 
 | Project # | Title | Technologies |
 |----------|-------|--------------|
-| 01 | [2-Tier Architecture on AWS](https://github.com/sumidhasethi/Devops_Projects/tree/feature/secure-vpc-iam-project) | Terraform, AWS EC2, VPC |
+| 01 | [2-Tier Architecture on AWS](https://github.com/sumidhasethi/Devops_Projects/tree/feature/secure-vpc-iam-project) | Terraform, AWS EC2, VPC, IAM |
 
 
 ## 🎯 Goals of These Projects
-- Hands-on practice with Terraform, AWS, and Kubernetes
+- Hands-on practice with Terraform, AWS services, and Kubernetes
 - Implement real-world DevOps practices
 - Improve security via scanning and IAM best practices
 - Showcase project architecture and automation capabilities
