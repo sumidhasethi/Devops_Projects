@@ -73,18 +73,157 @@ To create the necessary Terraform configuration file, use the .tf extension (e.g
 
 
 **Step 4:** 
-Configure Your Files in the IDE
-In your IDE, start by defining the AWS provider and the necessary resources such as S3 buckets, IAM roles, and policies.
 
-Create a provider.tf file and add the following code:
+**Define your Configuration Files in your IDE**
 
-provider "aws" {
+In the configuration files, define the AWS provider and required resources like S3 bucket, IAM roles and policies. 
+
+1. Define the provider.tf file using below code :
+
+   provider "aws" {
     region = "ap-south-1"
 }
 
-Next, open the terminal in your Integrated Development Environment (IDE) and navigate to the directory where your Terraform configuration files are stored. Once in the correct directory, run the following command to initialize Terraform and configure it for use with AWS:
 
-terraform init
+2. In your IDE, open the terminal and navigate to the directory where these configurations files are created.
 
-The terraform init command will download and install the required plugins and modules to establish a connection with AWS and manage your infrastructure.
+3. After navigating to the directory where configuration files are present, run the command to initialise Terraform and prepare it for use with AWS. 
+
+   terraform init
+
+Init command will install all the necessary plugins and modules required for connecting to AWS and managing the infrastructure. 
+
+
+4. When initialisation is completed, in the resource.tf file, start by creating the s3 bucket.
+
+   resource "aws_s3_bucket" "bucket1" {
+    bucket = "web-bucket-sumidha"
+}
+
+5. Run the below command to create the bucket :
+
+   terraform apply -auto-approve
+
+
+6. Once bucket gets created, add the below code in resource.tf file :
+
+#In this project, we are creating a static webiste, so we need to disable all the restrictions that AWS enforces by default to prevent public access to S3 buckets. This is necessary for a public website so the contents can be accessed anonymously.
+
+          resource "aws_s3_bucket_public_access_block" "bucket1" {
+            bucket = aws_s3_bucket.bucket1.id
+          
+            block_public_acls       = false
+            block_public_policy     = false
+            ignore_public_acls      = false
+            restrict_public_buckets = false
+          }
+
+
+#For the website, the index block will upload objects(which are html files in case of our project) to the s3 bucket. 
+
+          resource "aws_s3_object" "index" {
+            bucket = "web-bucket-sumidha"
+            key    = "index.html"
+            source = "index.html"
+            content_type = "text/html"
+          }
+          
+          resource "aws_s3_object" "error" {
+            bucket = "web-bucket-sumidha"
+            key    = "error.html"
+            source = "error.html"
+            content_type = "text/html"
+          }
+
+
+
+#Next we need to enable the static website hosting on our S3 bucket. This block will set up index.html as the default landing page and error.html as the error page.
+
+
+          resource "aws_s3_bucket_website_configuration" "bucket1" {
+            bucket = aws_s3_bucket.bucket1.id
+          
+            index_document {
+              suffix = "index.html"
+            }
+          
+            error_document {
+              key = "error.html"
+            }
+          
+          }
+
+
+
+#Below code adds a bucket policy that allows anyone on the internet ("Principal": "*") to read objects from this bucket using HTTP. This is critical for enabling anonymous web access.
+
+
+          resource "aws_s3_bucket_policy" "public_read_access" {
+            bucket = aws_s3_bucket.bucket1.id
+            policy = <<EOF
+          {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Effect": "Allow",
+          	  "Principal": "*",
+                "Action": [ "s3:GetObject" ],
+                "Resource": [
+                  "${aws_s3_bucket.bucket1.arn}",
+                  "${aws_s3_bucket.bucket1.arn}/*"
+                ]
+              }
+            ]
+          }
+          EOF
+          }
+
+
+7. Once the resource.tf file is written completely, run the plan command as it helps to identify the missing variables, provider issues, or misconfigured resources early. And also, to understand exactly what Terraform is going to create, change, or destroy.
+
+          terraform plan
+
+
+8. Carefully review the output of the terraform plan command. This will display all the resources that will be created, modified, or destroyed. Ensure that the changes are as expected.
+   
+
+10. If everything looks good and you’re ready to apply the changes, run the terraform apply command to apply the plan and provision the resources.
+
+          terraform apply  -auto-approve
+
+
+11. The code above will apply the necessary configurations for features such as static website hosting, bucket policies, and blocking public access to your bucket.
+    
+
+
+**Step 5:** 
+
+**Define the Output File**
+
+1. We use an output file to obtain the website link in the IDE, thus eliminating the need to access link through the AWS console.
+
+
+2. Defile the Output.tf file and add the below code :
+
+          output "websiteendpoint" {
+          value = aws_s3_bucket.bucket1.website_endpoint
+         }
+
+
+3. Run the apply command : 
+
+          terraform apply  -auto-approve
+
+
+4. Once done, it will create and give the website link in the terminal as output.
+
+
+**Step 6:** 
+
+**Verify the Output**
+
+Copy & paste the link in any browser and check the results.
+ 
+
+
 
