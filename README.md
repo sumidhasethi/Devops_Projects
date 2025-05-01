@@ -80,29 +80,29 @@ In the configuration files, define the AWS provider and required resources like 
 
 1. Define the provider.tf file using below code :
 
-   provider "aws" {
-    region = "ap-south-1"
-}
+             provider "aws" {
+              region = "ap-south-1"
+          }
 
 
 2. In your IDE, open the terminal and navigate to the directory where these configurations files are created.
 
 3. After navigating to the directory where configuration files are present, run the command to initialise Terraform and prepare it for use with AWS. 
 
-   terraform init
+             terraform init
 
 Init command will install all the necessary plugins and modules required for connecting to AWS and managing the infrastructure. 
 
 
 4. When initialisation is completed, in the resource.tf file, start by creating the s3 bucket.
 
-   resource "aws_s3_bucket" "bucket1" {
-    bucket = "web-bucket-sumidha"
-}
+             resource "aws_s3_bucket" "bucket1" {
+              bucket = "web-bucket-sumidha"
+          }
 
 5. Run the below command to create the bucket :
 
-   terraform apply -auto-approve
+             terraform apply -auto-approve
 
 
 6. Once bucket gets created, add the below code in resource.tf file :
@@ -216,6 +216,7 @@ Init command will install all the necessary plugins and modules required for con
 
 
 4. Once done, it will create and give the website link in the terminal as output.
+<img width="627" alt="Screenshot 2025-05-01 at 1 09 02 PM" src="https://github.com/user-attachments/assets/2e282591-665c-4378-ab62-e37426e98231" />
 
 
 **Step 6:** 
@@ -223,6 +224,8 @@ Init command will install all the necessary plugins and modules required for con
 **Verify the Output**
 
 Copy & paste the link in any browser and check the results.
+<img width="1438" alt="Screenshot 2025-05-01 at 1 14 18 PM" src="https://github.com/user-attachments/assets/9779b380-f3bd-4d2a-86ee-9398024b819d" />
+
  
 
 
