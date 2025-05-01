@@ -235,4 +235,17 @@ Copy & paste the link in any browser and check the results.
  
 
 
+**Key Learnings**
+
+
+
+1. Learned how to provision and configure AWS S3 for static website hosting using Terraform.
+
+2. Gained practical experience managing AWS resources declaratively with Infrastructure as Code.
+
+3. Understood the use of Terraform state management and resource dependencies.
+
+4. Implemented S3 bucket policies through Terraform to securely allow public website access.
+
+5. Validated deployment by accessing the live website via the generated S3 static website endpoint.
 
