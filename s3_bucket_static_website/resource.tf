@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "bucket1" {
-  bucket = "web-bucket-sumidha"
+  bucket = "web-bucket-sumidha1"
 }
 
 resource "aws_s3_bucket_public_access_block" "bucket1" {
@@ -12,14 +12,14 @@ resource "aws_s3_bucket_public_access_block" "bucket1" {
 }
 
 resource "aws_s3_object" "index" {
-  bucket       = "web-bucket-sumidha"
+  bucket       = "web-bucket-sumidha1"
   key          = "index.html"
   source       = "index.html"
   content_type = "text/html"
 }
 
 resource "aws_s3_object" "error" {
-  bucket       = "web-bucket-sumidha"
+  bucket       = "web-bucket-sumidha1"
   key          = "error.html"
   source       = "error.html"
   content_type = "text/html"
