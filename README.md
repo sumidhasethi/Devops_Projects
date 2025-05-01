@@ -50,6 +50,12 @@ This project demonstrates a fully automated, serverless static website hosting s
 
 ---
 
+**Project Structure**
+
+<img width="328" alt="Screenshot 2025-05-01 at 1 20 44 PM" src="https://github.com/user-attachments/assets/62984943-8e1d-479b-8faa-8b259fcae736" />
+
+---
+
 **Steps**
 ---
 
