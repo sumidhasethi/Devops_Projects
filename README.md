@@ -477,7 +477,7 @@ Create a variable.tf file and define all the input variables required to customi
               
               variable "ssh_ip" {
                 description = "The IP address allowed for SSH access"
-                default     = "13.71.3.103/32"  # Replace with your IP for SSH access
+                default     = "0.0.0.0/0"  # Replace with your IP for SSH access
               }
               
               variable "ami_id" {
