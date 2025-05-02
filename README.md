@@ -141,12 +141,12 @@ Run the following AWS CLI command to create an S3 bucket for remote state storag
 To create a DynamoDB table for state locking, run the following command:
 
 
-aws dynamodb create-table \
-    --table-name terraform-lock-table \
-    --attribute-definitions AttributeName=LockID,AttributeType=S \
-    --key-schema AttributeName=LockID,KeyType=HASH \
-    --billing-mode PAY_PER_REQUEST \
-    --region us-east-1
+        aws dynamodb create-table \
+            --table-name terraform-lock-table \
+            --attribute-definitions AttributeName=LockID,AttributeType=S \
+            --key-schema AttributeName=LockID,KeyType=HASH \
+            --billing-mode PAY_PER_REQUEST \
+            --region us-east-1
 
 
 This will create the DynamoDB table named terraform-lock-table. Change the region (us-east-1) & table name to the one of your choice.
@@ -178,8 +178,7 @@ Create a backend.tf file to configure the remote backend in Terraform. This ensu
           key            = "aws/terraform.tfstate"
           region         = "us-east-1"  # Choose your AWS region
           encrypt        = true
-          dynamodb_table = "terraform-lock-table" # Replace with your DynamoDB table name for 
-          state locking
+          dynamodb_table = "terraform-lock-table"  # Replace with your DynamoDB table name for  state locking
         }
       }
 
@@ -213,12 +212,12 @@ This specifies that AWS is the cloud provider and sets the region to us-east-1 f
 
 2. VPC Creation
       
-      resource "aws_vpc" "main" {
-        cidr_block = var.vpc_cidr_block
-        tags = {
-          Name = "main-vpc"
-        }
-      }
+            resource "aws_vpc" "main" {
+              cidr_block = var.vpc_cidr_block
+              tags = {
+                Name = "main-vpc"
+              }
+            }
 
 This block creates a Virtual Private Cloud (VPC) in AWS with the CIDR block 10.0.0.0/16, allowing up to 65,536 IP addresses. The tags section assigns a human-readable name (main-vpc) to help identify the VPC in the AWS console.
 
@@ -227,12 +226,12 @@ This block creates a Virtual Private Cloud (VPC) in AWS with the CIDR block 10.0
 3. Internet Gateway
 
       
-      resource "aws_internet_gateway" "igw" {
-        vpc_id = aws_vpc.main.id
-        tags = {
-          Name = "main-igw"
-        }
-      }
+            resource "aws_internet_gateway" "igw" {
+              vpc_id = aws_vpc.main.id
+              tags = {
+                Name = "main-igw"
+              }
+            }
 
 
 This block creates an Internet Gateway and attaches it to the VPC created earlier 
@@ -562,11 +561,82 @@ Apply the configuration to provision infrastructure:
 
       terraform apply  -auto-approve
 
+Once done, it will create the resources and give the values in the terminal as output.
+
+
+<img width="499" alt="Screenshot 2025-05-02 at 5 27 34 PM" src="https://github.com/user-attachments/assets/bff9e8fe-2f05-4f5b-815d-d80991cc0b23" />
 
 
 
+**Step 10**
+
+**Validation**
+
+- Check in the AWS Console or use CLI to check the resources:
+EC2
+
+<img width="918" alt="Screenshot 2025-05-02 at 5 28 34 PM" src="https://github.com/user-attachments/assets/73b4534d-0779-46c1-8966-b46146bb26e2" />
+
+VPC
+  
+<img width="919" alt="Screenshot 2025-05-02 at 5 29 05 PM" src="https://github.com/user-attachments/assets/780451f2-2327-432a-ba86-e37817bdb01c" />
+
+
+- Confirm Terraform State
+
+Check if Terraform is aware of the infra:
+
+      terraform state list
+
+It should list all provisioned resources.
 
 
 
+<img width="580" alt="Screenshot 2025-05-02 at 5 32 56 PM" src="https://github.com/user-attachments/assets/1606fdce-6143-450d-a20d-b7e956c9ffdf" />
 
 
+- Test EC2 Public Instance (via SSH)
+
+
+Use the public_instance_public_ip to connect:
+
+ssh -i <your-key.pem> ec2-user@54.175.7.101
+
+<img width="653" alt="Screenshot 2025-05-02 at 5 48 51 PM" src="https://github.com/user-attachments/assets/2ba61012-6807-47e5-939b-d306c3f25f18" />
+
+Check if the httpd service is running correctly.
+
+<img width="628" alt="Screenshot 2025-05-02 at 5 52 11 PM" src="https://github.com/user-attachments/assets/d2e7d8ab-ef95-4a49-baad-80b99b082a45" />
+
+
+**Make sure:**
+
+Your key pair matches the one used in Terraform.
+
+Security group allows inbound SSH (port 22) from your IP or from all IPs.
+
+If SSH works, your EC2 + public subnet + SG + key setup is working.
+
+
+- Check if Web Server is Serving the Page
+
+Open a browser and type http://<Public IP>
+
+You should see the message: "Hello, World! This is a sample website.".
+
+This confirms that your user_data script ran successfully, installing and starting the httpd server and serving the sample webpage.
+
+<img width="716" alt="Screenshot 2025-05-02 at 5 54 20 PM" src="https://github.com/user-attachments/assets/661a1576-4635-4450-8440-cd1f53e7bc8b" />
+
+
+
+**Key Learnings**
+
+- Learned to use Terraform for provisioning VPC, EC2 instances, subnets, and security groups to create a scalable cloud infrastructure.
+
+- Configured S3 and DynamoDB for secure state management and locking, ensuring safe collaboration and preventing state conflicts.
+
+- Accessed the deployed EC2 instance via its public IP, confirming successful web server setup and full infrastructure provisioning.
+
+- Used EC2 user data scripts to automatically install and configure a web server, displaying a sample webpage. This showcases 
+   infrastructure automation using Terraform.
