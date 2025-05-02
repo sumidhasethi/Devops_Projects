@@ -65,6 +65,7 @@ This project demonstrates a fully automated, serverless static website hosting s
 
 Begin by installing Terraform and the AWS Command Line Interface (CLI) on your local machine. Next, configure your AWS credentials by running the command aws configure, and input your AWS access key and secret key when prompted.
 
+
 **Step 2:**
 
 **Prepare Your Website Content**
